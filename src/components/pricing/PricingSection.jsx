@@ -1,26 +1,17 @@
-import { useState } from 'react';
-import { CheckCircle2, Info, X } from 'lucide-react';
+import { Info } from 'lucide-react';
 import {
   PACKAGES_DATA,
   PACKAGE_COMPARISON_ROWS,
   PRICING_DISCLOSURES,
 } from '../../data/packages';
-import { formatHUF } from '../../utils/formatCurrency';
+import { useModal } from '../../hooks/useModal';
 import PageContainer from '../layout/PageContainer';
 import SectionHeading from '../common/SectionHeading';
-import Badge from '../common/Badge';
-import Button from '../common/Button';
 import PricingCard from './PricingCard';
+import PackageDetailsModal from '../modals/PackageDetailsModal';
 
-export default function PricingSection({ onSelectPackage }) {
-  const [selectedPackage, setSelectedPackage] = useState(null);
-
-  const handlePackageSelect = (pkg) => {
-    setSelectedPackage(pkg);
-    if (onSelectPackage) {
-      onSelectPackage(pkg);
-    }
-  };
+export default function PricingSection() {
+  const { isOpen, modalData: selectedPackage, openModal, closeModal } = useModal(false);
 
   return (
     <section id="pricing" className="py-16 sm:py-20 bg-background border-t border-border">
@@ -29,7 +20,7 @@ export default function PricingSection({ onSelectPackage }) {
         <SectionHeading
           eyebrow="Transparent Pricing"
           title="Clear Packages in HUF. No Hidden Surprises."
-          subtitle="Choose between initial first-month onboarding support or full 12-month administrative coverage. Click either package card to inspect details and start your application."
+          subtitle="Choose between initial first-month onboarding support or full 12-month administrative coverage. Click either package card to view full details and submit your application."
           align="center"
         />
 
@@ -39,68 +30,11 @@ export default function PricingSection({ onSelectPackage }) {
             <PricingCard
               key={pkg.id}
               pkg={pkg}
-              isSelected={selectedPackage?.id === pkg.id}
-              onSelect={handlePackageSelect}
+              isSelected={isOpen && selectedPackage?.id === pkg.id}
+              onSelect={(clickedPkg) => openModal(clickedPkg)}
             />
           ))}
         </div>
-
-        {/* Interactive Package Details Preview Banner (when a card is clicked) */}
-        {selectedPackage && !onSelectPackage && (
-          <div
-            role="region"
-            aria-live="polite"
-            className="max-w-5xl mx-auto rounded-2xl bg-surface border-2 border-accent p-6 sm:p-7 surface-elevated space-y-4"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <Badge tone="accent">Selected Package</Badge>
-                  <span className="text-xs text-muted">
-                    Duration: {selectedPackage.durationLabel}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-primary">
-                  {selectedPackage.name} — {formatHUF(selectedPackage.price)}
-                </h3>
-                <p className="text-sm text-muted">
-                  {selectedPackage.summary}
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setSelectedPackage(null)}
-                aria-label="Close package details preview"
-                className="p-2 rounded-lg border border-border text-muted hover:text-primary hover:bg-background cursor-pointer"
-              >
-                <X className="w-4 h-4" aria-hidden="true" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 border-t border-border">
-              {selectedPackage.features.map((item) => (
-                <div key={item} className="flex items-start gap-2 text-xs sm:text-sm text-primary">
-                  <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-2 flex items-center justify-between flex-wrap gap-3 text-xs text-muted">
-              <span>
-                Ready for modal application form integration in the next milestone.
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setSelectedPackage(null)}
-              >
-                Clear Selection
-              </Button>
-            </div>
-          </div>
-        )}
 
         {/* Side-by-Side Package Comparison Table */}
         <div className="max-w-5xl mx-auto space-y-4">
@@ -162,6 +96,14 @@ export default function PricingSection({ onSelectPackage }) {
           </ul>
         </div>
       </PageContainer>
+
+      {/* Interactive Package Details & Application Modal */}
+      <PackageDetailsModal
+        isOpen={isOpen}
+        selectedPackage={selectedPackage}
+        onSelectPackage={(updatedPkg) => openModal(updatedPkg)}
+        onClose={closeModal}
+      />
     </section>
   );
 }
