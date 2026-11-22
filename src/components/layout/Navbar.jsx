@@ -72,7 +72,7 @@ export default function Navbar() {
             aria-label={`${SITE_CONFIG.brandName} — Home`}
           >
             <img
-              src="/logo.svg"
+              src={`${import.meta.env.BASE_URL}logo.svg`}
               alt={SITE_CONFIG.brandName}
               className="h-7 sm:h-8 md:h-9 w-auto max-w-[175px] sm:max-w-none"
             />

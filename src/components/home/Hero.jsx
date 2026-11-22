@@ -81,7 +81,7 @@ export default function Hero() {
           <div className="lg:col-span-5 min-w-0">
             <div className="rounded-2xl border border-border bg-background p-3 sm:p-4 surface-card">
               <img
-                src="/images/hero-budapest-support.svg"
+                src={`${import.meta.env.BASE_URL}images/hero-budapest-support.svg`}
                 alt="Structured GTR business registration, courier onboarding, and administrative support workflow in Budapest"
                 className="w-full h-auto rounded-xl"
               />
