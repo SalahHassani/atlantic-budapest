@@ -1,7 +1,23 @@
-node_modules/
-dist/
-.env
-.env.*
-!.env.example
-.DS_Store
+# Logs
+logs
 *.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor & OS files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
