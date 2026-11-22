@@ -7,8 +7,14 @@ import PageContainer from '../components/layout/PageContainer';
 import SectionHeading from '../components/common/SectionHeading';
 import FaqAccordion from '../components/common/FaqAccordion';
 import CtaBanner from '../components/common/CtaBanner';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 export default function Home() {
+  useDocumentTitle(
+    'Start Your Courier Business in Hungary',
+    'Atlantic Budapest provides GTR sole proprietorship registration, Wolt and foodora courier onboarding assistance, and ongoing administrative support in Budapest, Hungary.'
+  );
+
   return (
     <>
       <Hero />

@@ -14,13 +14,11 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Close menus whenever the route changes
   useEffect(() => {
     setMobileMenuOpen(false);
     setLangMenuOpen(false);
   }, [location.pathname]);
 
-  // Close language dropdown when clicking outside or pressing Escape
   useEffect(() => {
     function handleClickOutside(event) {
       if (langDropdownRef.current && !langDropdownRef.current.contains(event.target)) {
@@ -59,9 +57,15 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 bg-surface/95 backdrop-blur border-b border-border">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-surface focus:text-sm focus:font-semibold"
+      >
+        Skip to main content
+      </a>
+
       <PageContainer>
         <div className="h-16 sm:h-18 flex items-center justify-between gap-4">
-          {/* Brand Logo Treatment */}
           <Link
             to="/"
             className="flex items-center gap-2.5 shrink-0 focus-visible:outline-accent rounded-md"
@@ -74,7 +78,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop & Tablet Navigation Links */}
           <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map((item) => (
               <NavLink
@@ -88,9 +91,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop / Tablet Actions: Language Selector + Get Started CTA */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Language Selector Placeholder */}
             <div className="relative" ref={langDropdownRef}>
               <button
                 type="button"
@@ -155,7 +156,6 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile Hamburger Toggle */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
@@ -173,7 +173,6 @@ export default function Navbar() {
         </div>
       </PageContainer>
 
-      {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
         <div
           id="mobile-navigation-drawer"
@@ -194,7 +193,6 @@ export default function Navbar() {
             </nav>
 
             <div className="pt-3 border-t border-border flex items-center justify-between gap-3">
-              {/* Mobile Language Selector Placeholder */}
               <div className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-border bg-background text-xs font-medium text-primary">
                 <Globe className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
                 <span>Language: {selectedLang}</span>

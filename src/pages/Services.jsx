@@ -1,4 +1,5 @@
 import { ClipboardList, Send, CalendarCheck } from 'lucide-react';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import PageContainer from '../components/layout/PageContainer';
 import SectionHeading from '../components/common/SectionHeading';
 import ServiceGrid from '../components/services/ServiceGrid';
@@ -30,6 +31,11 @@ const WORKFLOW_STEPS = [
 ];
 
 export default function Services() {
+  useDocumentTitle(
+    'Services',
+    'Explore all 9 Atlantic Budapest administrative services: GTR registration, suspension, reactivation, closure, Wolt and foodora onboarding, monthly admin, and student support.'
+  );
+
   return (
     <>
       <section className="bg-surface border-b border-border py-12 sm:py-16">

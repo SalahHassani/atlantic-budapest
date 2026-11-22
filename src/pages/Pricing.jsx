@@ -1,9 +1,15 @@
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import PageContainer from '../components/layout/PageContainer';
 import SectionHeading from '../components/common/SectionHeading';
 import PricingSection from '../components/pricing/PricingSection';
 import CtaBanner from '../components/common/CtaBanner';
 
 export default function Pricing() {
+  useDocumentTitle(
+    'Pricing & Packages',
+    'Compare Atlantic First Month (15,000 HUF) and Atlantic Complete (50,000 HUF for 12 months) packages in Budapest, Hungary.'
+  );
+
   return (
     <>
       <section className="bg-surface border-b border-border py-12 sm:py-16">

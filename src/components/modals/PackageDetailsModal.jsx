@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { X, Check, Info } from 'lucide-react';
 import { formatHUF } from '../../utils/formatCurrency';
 import Badge from '../common/Badge';
@@ -9,6 +10,21 @@ export default function PackageDetailsModal({
   onSelectPackage,
   onClose,
 }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previouslyFocused = document.activeElement;
+    dialogRef.current?.focus();
+
+    return () => {
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+    };
+  }, [isOpen]);
+
   if (!isOpen || !selectedPackage) {
     return null;
   }
@@ -20,16 +36,17 @@ export default function PackageDetailsModal({
       aria-labelledby="package-modal-title"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
     >
-      {/* Backdrop */}
       <div
         className="fixed inset-0 bg-primary/65 backdrop-blur-xs transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal Container */}
-      <div className="relative z-10 w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl bg-surface border border-border surface-elevated">
-        {/* Sticky Top Header */}
+      <div
+        ref={dialogRef}
+        tabIndex={-1}
+        className="relative z-10 w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl bg-surface border border-border surface-elevated focus:outline-none"
+      >
         <div className="sticky top-0 z-20 bg-surface/95 backdrop-blur border-b border-border px-5 sm:px-8 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2.5 flex-wrap">
             <Badge tone={selectedPackage.featured ? 'accent' : 'default'}>
@@ -53,9 +70,7 @@ export default function PackageDetailsModal({
           </button>
         </div>
 
-        {/* Two-Column Body: Package Summary & Inclusions (Left) + Application Form (Right) */}
         <div className="p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Price & Included Services */}
           <div className="lg:col-span-5 space-y-5">
             <div className="rounded-xl bg-primary text-surface p-5 space-y-1.5">
               <p className="text-xs uppercase tracking-wider text-secondary/75">
@@ -112,7 +127,6 @@ export default function PackageDetailsModal({
             </div>
           </div>
 
-          {/* Right Column: Customer Application Form */}
           <div className="lg:col-span-7 lg:border-l lg:border-border lg:pl-8 space-y-4">
             <div>
               <h4 className="text-base sm:text-lg font-bold text-primary">

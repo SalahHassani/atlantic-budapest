@@ -1,5 +1,6 @@
 import { MapPin, Users, ShieldCheck, Scale, CheckCircle2 } from 'lucide-react';
 import { SITE_CONFIG } from '../config/site';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import PageContainer from '../components/layout/PageContainer';
 import SectionHeading from '../components/common/SectionHeading';
 import Badge from '../components/common/Badge';
@@ -45,9 +46,13 @@ const OPERATING_PRINCIPLES = [
 ];
 
 export default function About() {
+  useDocumentTitle(
+    'About Us',
+    'Learn how Atlantic Budapest supports couriers, international students, and foreign residents in Budapest with transparent administrative guidance.'
+  );
+
   return (
     <>
-      {/* Hero / Introduction */}
       <section className="bg-surface border-b border-border py-12 sm:py-16">
         <PageContainer className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-7 space-y-4">
@@ -99,7 +104,6 @@ export default function About() {
         </PageContainer>
       </section>
 
-      {/* Who We Support */}
       <section className="py-14 sm:py-20 bg-background">
         <PageContainer className="space-y-10">
           <SectionHeading
@@ -123,7 +127,6 @@ export default function About() {
         </PageContainer>
       </section>
 
-      {/* How We Operate & Boundaries */}
       <section className="py-14 sm:py-20 bg-surface border-t border-border">
         <PageContainer className="space-y-10">
           <SectionHeading
