@@ -42,14 +42,14 @@ export default function Navbar() {
   }, []);
 
   const navLinkClass = ({ isActive }) =>
-    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+    `px-2.5 lg:px-3 py-2 rounded-md text-xs lg:text-sm font-medium whitespace-nowrap transition-colors ${
       isActive
         ? 'text-primary bg-secondary/80 font-semibold'
         : 'text-muted hover:text-primary hover:bg-background'
     }`;
 
   const mobileNavLinkClass = ({ isActive }) =>
-    `block px-3.5 py-2.5 rounded-lg text-sm font-medium ${
+    `block px-3.5 py-3 rounded-lg text-sm font-medium ${
       isActive
         ? 'bg-secondary text-primary font-semibold'
         : 'text-primary hover:bg-background'
@@ -65,20 +65,21 @@ export default function Navbar() {
       </a>
 
       <PageContainer>
-        <div className="h-16 sm:h-18 flex items-center justify-between gap-4">
+        <div className="h-16 sm:h-18 flex items-center justify-between gap-2 sm:gap-4">
           <Link
             to="/"
-            className="flex items-center gap-2.5 shrink-0 focus-visible:outline-accent rounded-md"
+            className="flex items-center gap-2 shrink-0 focus-visible:outline-accent rounded-md"
             aria-label={`${SITE_CONFIG.brandName} — Home`}
           >
             <img
               src="/logo.svg"
               alt={SITE_CONFIG.brandName}
-              className="h-9 w-auto"
+              className="h-7 sm:h-8 md:h-9 w-auto max-w-[175px] sm:max-w-none"
             />
           </Link>
 
-          <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-1">
+          {/* Tablet & Desktop Links */}
+          <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-0.5 lg:gap-1">
             {NAV_LINKS.map((item) => (
               <NavLink
                 key={item.path}
@@ -91,7 +92,8 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
+          {/* Tablet & Desktop Actions */}
+          <div className="hidden md:flex items-center gap-2 lg:gap-3 shrink-0">
             <div className="relative" ref={langDropdownRef}>
               <button
                 type="button"
@@ -149,6 +151,7 @@ export default function Navbar() {
             <Button
               variant="primary"
               size="sm"
+              className="whitespace-nowrap"
               onClick={() => navigate('/pricing')}
             >
               Get Started
@@ -156,13 +159,14 @@ export default function Navbar() {
             </Button>
           </div>
 
+          {/* Mobile Hamburger Toggle */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation-drawer"
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border bg-surface text-primary hover:bg-background cursor-pointer"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border bg-surface text-primary hover:bg-background cursor-pointer shrink-0"
           >
             {mobileMenuOpen ? (
               <X className="w-5 h-5" aria-hidden="true" />
@@ -173,10 +177,11 @@ export default function Navbar() {
         </div>
       </PageContainer>
 
+      {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
         <div
           id="mobile-navigation-drawer"
-          className="md:hidden bg-surface border-t border-border shadow-md"
+          className="md:hidden bg-surface border-t border-border shadow-md max-h-[80dvh] overflow-y-auto"
         >
           <PageContainer className="py-4 space-y-4">
             <nav aria-label="Mobile Navigation" className="space-y-1">
@@ -192,9 +197,9 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <div className="pt-3 border-t border-border flex items-center justify-between gap-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-border bg-background text-xs font-medium text-primary">
-                <Globe className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
+            <div className="pt-3 border-t border-border flex flex-col xs:flex-row sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <div className="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2.5 rounded-lg border border-border bg-background text-xs font-medium text-primary">
+                <Globe className="w-3.5 h-3.5 text-accent shrink-0" aria-hidden="true" />
                 <span>Language: {selectedLang}</span>
                 <span className="text-muted">(HU soon)</span>
               </div>
@@ -202,6 +207,7 @@ export default function Navbar() {
               <Button
                 variant="primary"
                 size="sm"
+                className="w-full sm:w-auto justify-center"
                 onClick={() => navigate('/pricing')}
               >
                 Get Started
