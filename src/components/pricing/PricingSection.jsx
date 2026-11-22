@@ -1,12 +1,15 @@
 import { Info } from 'lucide-react';
 import {
+  INDIVIDUAL_FEES,
   PACKAGES_DATA,
   PACKAGE_COMPARISON_ROWS,
   PRICING_DISCLOSURES,
 } from '../../data/packages';
+import { formatHUF } from '../../utils/formatCurrency';
 import { useModal } from '../../hooks/useModal';
 import PageContainer from '../layout/PageContainer';
 import SectionHeading from '../common/SectionHeading';
+import Badge from '../common/Badge';
 import PricingCard from './PricingCard';
 import PackageDetailsModal from '../modals/PackageDetailsModal';
 
@@ -19,8 +22,8 @@ export default function PricingSection() {
         {/* Section Heading */}
         <SectionHeading
           eyebrow="Transparent Pricing"
-          title="Clear Packages in HUF. No Hidden Surprises."
-          subtitle="Choose between initial first-month onboarding support or full 12-month administrative coverage. Click either package card to view full details and submit your application."
+          title="Clear Packages & Standard Service Fees in HUF"
+          subtitle="Choose a discounted bundle below or review our individual service fees and statutory contributions upfront. Click either package card to view details and apply."
           align="center"
         />
 
@@ -34,6 +37,50 @@ export default function PricingSection() {
               onSelect={(clickedPkg) => openModal(clickedPkg)}
             />
           ))}
+        </div>
+
+        {/* Individual Service Fees & MKIK Statutory Fee Breakdown */}
+        <div className="max-w-5xl mx-auto space-y-4">
+          <div className="space-y-1">
+            <h3 className="text-lg sm:text-xl font-bold text-primary">
+              Standard Individual Service &amp; Statutory Fees
+            </h3>
+            <p className="text-sm text-muted">
+              Transparent breakdown of each standalone service fee and the separate MKIK Chamber of Commerce contribution.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {INDIVIDUAL_FEES.map((item) => (
+              <article
+                key={item.id}
+                className="surface-card p-5 flex flex-col justify-between space-y-3"
+              >
+                <div className="space-y-2">
+                  <Badge
+                    tone={item.id === 'mkik-statutory-fee' ? 'neutral' : 'accent'}
+                  >
+                    {item.billingLabel}
+                  </Badge>
+                  <h4 className="text-base font-semibold text-primary leading-snug">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-muted leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-border">
+                  <span className="text-xl font-bold text-primary">
+                    {formatHUF(item.fee)}
+                  </span>
+                  {item.id === 'monthly-account-management' && (
+                    <span className="text-xs text-muted ml-1">/ month</span>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
 
         {/* Side-by-Side Package Comparison Table */}

@@ -81,13 +81,13 @@ export default function PackageDetailsModal({
                   {formatHUF(selectedPackage.price)}
                 </span>
                 {selectedPackage.originalPrice && (
-                  <span className="text-sm line-through text-secondary/70">
+                  <span className="text-sm line-through text-secondary/75">
                     {formatHUF(selectedPackage.originalPrice)}
                   </span>
                 )}
               </div>
               {selectedPackage.discountNote && (
-                <p className="text-xs text-accent font-medium pt-1">
+                <p className="text-xs text-accent font-semibold pt-1">
                   {selectedPackage.discountNote}
                 </p>
               )}

@@ -9,4 +9,7 @@ export const SITE_CONFIG = {
   altTagline: 'Making Business Administration Easier.',
   description:
     'Business registration, courier onboarding assistance for Wolt and foodora, and ongoing administrative support in Budapest, Hungary.',
+  legalDisclaimer:
+    'Atlantic Budapest provides administrative preparation, document organisation, and process coordination. We do not provide regulated accounting, certified tax advisory, or legal representation. Where Hungarian law requires regulated professional services, we coordinate with appropriately qualified professionals.',
 };
+

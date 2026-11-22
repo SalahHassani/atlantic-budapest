@@ -63,7 +63,7 @@ export default function PricingCard({ pkg, isSelected = false, onSelect }) {
           </div>
         </div>
 
-        {/* Price Block */}
+        {/* Price Block: Final Price + Strikethrough Original Price + Discount */}
         <div
           className={`rounded-xl p-4 sm:p-5 border ${
             isFeatured
@@ -81,20 +81,32 @@ export default function PricingCard({ pkg, isSelected = false, onSelect }) {
             </span>
 
             {pkg.originalPrice && (
-              <span className="text-sm line-through text-secondary/75">
+              <span
+                className={`text-sm font-medium line-through ${
+                  isFeatured ? 'text-secondary/75' : 'text-muted'
+                }`}
+              >
                 {formatHUF(pkg.originalPrice)}
               </span>
             )}
           </div>
 
+          {pkg.discountNote && (
+            <p
+              className={`text-xs font-semibold mt-1.5 ${
+                isFeatured ? 'text-accent' : 'text-accent'
+              }`}
+            >
+              {pkg.discountNote}
+            </p>
+          )}
+
           <p
-            className={`text-xs mt-1.5 ${
-              isFeatured ? 'text-secondary/90' : 'text-muted'
+            className={`text-xs mt-1 ${
+              isFeatured ? 'text-secondary/85' : 'text-muted'
             }`}
           >
-            {pkg.discountNote
-              ? pkg.discountNote
-              : 'One-time package fee · Statutory fees separate'}
+            Duration: {pkg.durationLabel} · Statutory fees separate
           </p>
         </div>
 
