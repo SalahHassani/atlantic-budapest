@@ -2,6 +2,7 @@ import { ClipboardList, Send, CalendarCheck } from 'lucide-react';
 import PageContainer from '../components/layout/PageContainer';
 import SectionHeading from '../components/common/SectionHeading';
 import ServiceGrid from '../components/services/ServiceGrid';
+import DocumentChecklist from '../components/common/DocumentChecklist';
 import CtaBanner from '../components/common/CtaBanner';
 
 const WORKFLOW_STEPS = [
@@ -31,7 +32,6 @@ const WORKFLOW_STEPS = [
 export default function Services() {
   return (
     <>
-      {/* Page Header */}
       <section className="bg-surface border-b border-border py-12 sm:py-16">
         <PageContainer className="space-y-8">
           <SectionHeading
@@ -40,7 +40,6 @@ export default function Services() {
             subtitle="Structured administrative assistance in Budapest for sole proprietors, Wolt and foodora couriers, international students, and foreign residents."
           />
 
-          {/* 3-Step Process Strip */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
             {WORKFLOW_STEPS.map((item) => {
               const IconComponent = item.icon;
@@ -70,14 +69,13 @@ export default function Services() {
         </PageContainer>
       </section>
 
-      {/* Full 9-Service Catalog + Regulatory Scope Notice */}
       <section className="py-14 sm:py-20 bg-background">
-        <PageContainer>
+        <PageContainer className="space-y-14">
           <ServiceGrid showFilters />
+          <DocumentChecklist />
         </PageContainer>
       </section>
 
-      {/* Next-Step CTA */}
       <CtaBanner
         eyebrow="Ready to Begin?"
         title="Compare Our Transparent HUF Packages"
