@@ -1,15 +1,43 @@
-import { SITE_CONFIG } from './config/site';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import Pricing from './pages/Pricing';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#F5F7FA] text-[#102A43] p-6">
-      <div className="text-center">
-        <h1 className="text-xl font-semibold">{SITE_CONFIG.brandName}</h1>
-        <p className="text-sm text-[#64748B] mt-1">
-       \s /V,   {SITE_CONFIG.teamName} — Milestone 0 Foundation Initialized
-        </p>
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen flex flex-col bg-background text-primary">
+        <Navbar />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
-    </main>
+    </BrowserRouter>
   );
 }
 
